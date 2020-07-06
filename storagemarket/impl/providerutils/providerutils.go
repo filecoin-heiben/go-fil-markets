@@ -13,10 +13,10 @@ import (
 	"github.com/ipld/go-ipld-prime"
 	"golang.org/x/xerrors"
 
-	"go-fil-markets/filestore"
-	"go-fil-markets/piecestore"
-	"go-fil-markets/shared"
-	"go-fil-markets/storagemarket/impl/blockrecorder"
+	"github.com/filecoin-heiben/go-fil-markets/filestore"
+	"github.com/filecoin-heiben/go-fil-markets/piecestore"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/blockrecorder"
 )
 
 // VerifyFunc is a function that can validate a signature for a given address and bytes

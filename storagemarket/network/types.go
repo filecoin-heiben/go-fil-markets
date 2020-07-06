@@ -6,7 +6,7 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/crypto"
 	"github.com/ipfs/go-cid"
 
-	"go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
 )
 
 //go:generate cbor-gen-for AskRequest AskResponse Proposal Response SignedResponse

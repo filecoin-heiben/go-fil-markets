@@ -20,12 +20,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	tut "go-fil-markets/shared_testutil"
-	"go-fil-markets/storagemarket"
-	storageimpl "go-fil-markets/storagemarket/impl"
-	"go-fil-markets/storagemarket/impl/clientstates"
-	smnet "go-fil-markets/storagemarket/network"
-	"go-fil-markets/storagemarket/testnodes"
+	tut "github.com/filecoin-heiben/go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	storageimpl "github.com/filecoin-heiben/go-fil-markets/storagemarket/impl"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/clientstates"
+	smnet "github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/testnodes"
 )
 
 var clientDealProposal = tut.MakeTestClientDealProposal()

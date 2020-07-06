@@ -10,8 +10,8 @@ import (
 	"github.com/ipfs/go-cid"
 	"golang.org/x/xerrors"
 
-	rm "go-fil-markets/retrievalmarket"
-	rmnet "go-fil-markets/retrievalmarket/network"
+	rm "github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	rmnet "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/network"
 )
 
 // ProviderDealEnvironment is a bridge to the environment a provider deal is executing in

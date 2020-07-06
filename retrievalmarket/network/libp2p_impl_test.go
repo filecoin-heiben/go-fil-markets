@@ -13,9 +13,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/retrievalmarket"
-	"go-fil-markets/retrievalmarket/network"
-	"go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/shared_testutil"
 )
 
 type testReceiver struct {

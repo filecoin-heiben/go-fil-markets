@@ -17,11 +17,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/retrievalmarket"
-	"go-fil-markets/retrievalmarket/impl/clientstates"
-	"go-fil-markets/retrievalmarket/impl/testnodes"
-	rmnet "go-fil-markets/retrievalmarket/network"
-	testnet "go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl/clientstates"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl/testnodes"
+	rmnet "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/network"
+	testnet "github.com/filecoin-heiben/go-fil-markets/shared_testutil"
 )
 
 type consumeBlockResponse struct {

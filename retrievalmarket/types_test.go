@@ -9,9 +9,9 @@ import (
 	basicnode "github.com/ipld/go-ipld-prime/node/basic"
 	"github.com/stretchr/testify/assert"
 
-	"go-fil-markets/retrievalmarket"
-	"go-fil-markets/shared"
-	tut "go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	tut "github.com/filecoin-heiben/go-fil-markets/shared_testutil"
 )
 
 func TestParamsMarshalUnmarshal(t *testing.T) {

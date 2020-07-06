@@ -16,13 +16,13 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/retrievalmarket"
-	rm "go-fil-markets/retrievalmarket"
-	retrievalimpl "go-fil-markets/retrievalmarket/impl"
-	"go-fil-markets/retrievalmarket/impl/providerstates"
-	"go-fil-markets/retrievalmarket/impl/testnodes"
-	rmtesting "go-fil-markets/retrievalmarket/testing"
-	testnet "go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	rm "github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	retrievalimpl "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl/providerstates"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl/testnodes"
+	rmtesting "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/testing"
+	testnet "github.com/filecoin-heiben/go-fil-markets/shared_testutil"
 )
 
 func TestReceiveDeal(t *testing.T) {

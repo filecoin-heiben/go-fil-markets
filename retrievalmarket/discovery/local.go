@@ -6,7 +6,7 @@ import (
 	dshelp "github.com/ipfs/go-ipfs-ds-help"
 	cbor "github.com/ipfs/go-ipld-cbor"
 
-	"go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
 )
 
 type Local struct {

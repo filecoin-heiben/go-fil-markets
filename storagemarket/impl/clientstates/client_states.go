@@ -12,11 +12,11 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	"golang.org/x/xerrors"
 
-	"go-fil-markets/shared"
-	"go-fil-markets/storagemarket"
-	"go-fil-markets/storagemarket/impl/clientutils"
-	"go-fil-markets/storagemarket/impl/requestvalidation"
-	"go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/clientutils"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/requestvalidation"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
 )
 
 var log = logging.Logger("storagemarket_impl")

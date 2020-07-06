@@ -1,4 +1,4 @@
-module go-fil-markets
+module github.com/filecoin-heiben/go-fil-markets
 
 go 1.13
 

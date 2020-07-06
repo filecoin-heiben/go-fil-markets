@@ -9,8 +9,8 @@ import (
 	"github.com/ipfs/go-datastore"
 	"github.com/stretchr/testify/assert"
 
-	"go-fil-markets/piecestore"
-	"go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/piecestore"
+	"github.com/filecoin-heiben/go-fil-markets/shared_testutil"
 )
 
 func TestStorePieceInfo(t *testing.T) {

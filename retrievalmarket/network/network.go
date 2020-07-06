@@ -3,7 +3,7 @@ package network
 import (
 	"github.com/libp2p/go-libp2p-core/peer"
 
-	"go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
 )
 
 type RetrievalQueryStream interface {

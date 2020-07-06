@@ -1,7 +1,7 @@
-# go-fil-markets
+# github.com/filecoin-heiben/go-fil-markets
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
-[![CircleCI](https://circleci.com/gh/filecoin-project/go-fil-markets.svg?style=svg)](https://circleci.com/gh/filecoin-project/go-fil-markets)
-[![codecov](https://codecov.io/gh/filecoin-project/go-fil-markets/branch/master/graph/badge.svg)](https://codecov.io/gh/filecoin-project/go-fil-markets)
+[![CircleCI](https://circleci.com/gh/filecoin-project/github.com/filecoin-heiben/go-fil-markets.svg?style=svg)](https://circleci.com/gh/filecoin-project/github.com/filecoin-heiben/go-fil-markets)
+[![codecov](https://codecov.io/gh/filecoin-project/github.com/filecoin-heiben/go-fil-markets/branch/master/graph/badge.svg)](https://codecov.io/gh/filecoin-project/github.com/filecoin-heiben/go-fil-markets)
 
 This repository contains modular implementations of the [storage and retrieval market subsystems](https://filecoin-project.github.io/specs/#systems__filecoin_markets) of Filecoin. 
 They are guided by the [v1.0 and 1.1 Filecoin specification updates](https://filecoin-project.github.io/specs/#intro__changelog). 
@@ -28,14 +28,14 @@ section of the Filecoin Specification contains the canonical spec.
 
 ## Installation
 ```bash
-go get "go-fil-markets/<MODULENAME>"`
+go get "github.com/filecoin-heiben/go-fil-markets/<MODULENAME>"`
 ```
 
 ## Usage
 Documentation is in the README for each module, listed in [Components](#Components).
 
 ## Contributing
-Issues and PRs are welcome! Please first read the [background reading](#background-reading) and [CONTRIBUTING](.go-fil-markets/CONTRIBUTING.md) guide, and look over the current code. PRs against master require approval of at least two maintainers. 
+Issues and PRs are welcome! Please first read the [background reading](#background-reading) and [CONTRIBUTING](.github.com/filecoin-heiben/go-fil-markets/CONTRIBUTING.md) guide, and look over the current code. PRs against master require approval of at least two maintainers. 
 
 Day-to-day discussion takes place in the #fil-components channel of the [Filecoin project chat](https://github.com/filecoin-project/community#chat). Usage or design questions are welcome.
 

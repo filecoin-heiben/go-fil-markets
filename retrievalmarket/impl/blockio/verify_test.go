@@ -7,9 +7,9 @@ import (
 	blocks "github.com/ipfs/go-block-format"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/retrievalmarket/impl/blockio"
-	"go-fil-markets/shared"
-	tut "go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl/blockio"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	tut "github.com/filecoin-heiben/go-fil-markets/shared_testutil"
 )
 
 func TestSelectorVerifier(t *testing.T) {

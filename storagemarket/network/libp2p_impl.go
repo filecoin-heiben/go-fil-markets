@@ -11,7 +11,7 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 
-	"go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
 )
 
 var log = logging.Logger("storagemarket_network")

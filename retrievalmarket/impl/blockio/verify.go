@@ -8,7 +8,7 @@ import (
 	"github.com/ipld/go-ipld-prime"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 
-	"go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
 )
 
 // BlockVerifier verifies blocks received are part of a dag, in the order

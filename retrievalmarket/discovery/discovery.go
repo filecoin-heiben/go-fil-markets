@@ -3,7 +3,7 @@ package discovery
 import (
 	cbor "github.com/ipfs/go-ipld-cbor"
 
-	"go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
 )
 
 func init() {

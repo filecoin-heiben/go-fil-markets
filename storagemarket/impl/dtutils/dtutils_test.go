@@ -9,10 +9,10 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/shared_testutil"
-	"go-fil-markets/storagemarket"
-	"go-fil-markets/storagemarket/impl/dtutils"
-	"go-fil-markets/storagemarket/impl/requestvalidation"
+	"github.com/filecoin-heiben/go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/dtutils"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/requestvalidation"
 )
 
 func TestProviderDataTransferSubscriber(t *testing.T) {

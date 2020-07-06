@@ -21,7 +21,7 @@ REPO_SUFFIXES_TO_STRIP=(
 
 AUTHORS=(
     # orgs
-    filecoin-project/go-fil-markets
+    filecoin-project/github.com/filecoin-heiben/go-fil-markets
     filecoin-project/go-data-transfer
     filecoin-project/go-statemachine
     ipfs/go-graphsync

@@ -10,10 +10,10 @@ import (
 	"github.com/ipfs/go-cid"
 	"golang.org/x/xerrors"
 
-	"go-fil-markets/pieceio"
-	"go-fil-markets/shared"
-	"go-fil-markets/storagemarket"
-	"go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/pieceio"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
 )
 
 // CommP calculates the commP for a given dataref

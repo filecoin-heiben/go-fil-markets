@@ -10,7 +10,7 @@ import (
 	"github.com/ipfs/go-cid"
 	"golang.org/x/xerrors"
 
-	rm "go-fil-markets/retrievalmarket"
+	rm "github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
 )
 
 func recordPaymentOwed(deal *rm.ClientDealState, totalProcessed uint64, paymentOwed abi.TokenAmount) error {

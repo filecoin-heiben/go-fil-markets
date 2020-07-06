@@ -14,8 +14,8 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 
-	"go-fil-markets/filestore"
-	"go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/filestore"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
 )
 
 //go:generate cbor-gen-for ClientDeal MinerDeal Balance SignedStorageAsk StorageAsk StorageDeal DataRef

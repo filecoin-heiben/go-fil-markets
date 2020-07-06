@@ -17,7 +17,7 @@ import (
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	basicnode "github.com/ipld/go-ipld-prime/node/basic"
 
-	"go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
 )
 
 // TestIPLDTree is a set of IPLD Data that forms a tree spread across some blocks

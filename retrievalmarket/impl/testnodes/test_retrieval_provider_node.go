@@ -14,8 +14,8 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/builtin/paych"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/retrievalmarket"
-	"go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
 )
 
 type expectedVoucherKey struct {

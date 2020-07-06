@@ -8,7 +8,7 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/abi/big"
 	"golang.org/x/xerrors"
 
-	rm "go-fil-markets/retrievalmarket"
+	rm "github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
 )
 
 func recordError(deal *rm.ProviderDealState, err error) error {

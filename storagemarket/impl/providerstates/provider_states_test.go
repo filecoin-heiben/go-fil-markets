@@ -20,16 +20,16 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/filestore"
-	"go-fil-markets/piecestore"
-	"go-fil-markets/shared"
-	tut "go-fil-markets/shared_testutil"
-	"go-fil-markets/storagemarket"
-	storageimpl "go-fil-markets/storagemarket/impl"
-	"go-fil-markets/storagemarket/impl/blockrecorder"
-	"go-fil-markets/storagemarket/impl/providerstates"
-	"go-fil-markets/storagemarket/network"
-	"go-fil-markets/storagemarket/testnodes"
+	"github.com/filecoin-heiben/go-fil-markets/filestore"
+	"github.com/filecoin-heiben/go-fil-markets/piecestore"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	tut "github.com/filecoin-heiben/go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	storageimpl "github.com/filecoin-heiben/go-fil-markets/storagemarket/impl"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/blockrecorder"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/providerstates"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/testnodes"
 )
 
 func TestValidateDealProposal(t *testing.T) {

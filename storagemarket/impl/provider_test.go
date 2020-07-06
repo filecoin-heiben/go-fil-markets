@@ -6,7 +6,7 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/abi"
 	"github.com/stretchr/testify/assert"
 
-	storageimpl "go-fil-markets/storagemarket/impl"
+	storageimpl "github.com/filecoin-heiben/go-fil-markets/storagemarket/impl"
 )
 
 func TestConfigure(t *testing.T) {

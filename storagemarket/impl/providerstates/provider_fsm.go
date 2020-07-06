@@ -6,8 +6,8 @@ import (
 	"github.com/ipfs/go-cid"
 	"golang.org/x/xerrors"
 
-	"go-fil-markets/filestore"
-	"go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/filestore"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
 )
 
 // ProviderEvents are the events that can happen in a storage provider

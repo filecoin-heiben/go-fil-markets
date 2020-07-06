@@ -7,7 +7,7 @@ import (
 	"io"
 	"testing"
 
-	"sector-storage/ffiwrapper"
+	"github.com/filecoin-heiben/sector-storage/ffiwrapper"
 	"github.com/filecoin-project/specs-actors/actors/abi"
 	"github.com/ipfs/go-cid"
 	dag "github.com/ipfs/go-merkledag"
@@ -18,11 +18,11 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/filestore"
-	fsmocks "go-fil-markets/filestore/mocks"
-	"go-fil-markets/pieceio"
-	"go-fil-markets/pieceio/cario"
-	pmocks "go-fil-markets/pieceio/mocks"
+	"github.com/filecoin-heiben/go-fil-markets/filestore"
+	fsmocks "github.com/filecoin-heiben/go-fil-markets/filestore/mocks"
+	"github.com/filecoin-heiben/go-fil-markets/pieceio"
+	"github.com/filecoin-heiben/go-fil-markets/pieceio/cario"
+	pmocks "github.com/filecoin-heiben/go-fil-markets/pieceio/mocks"
 )
 
 func Test_ThereAndBackAgain(t *testing.T) {

@@ -11,8 +11,8 @@ import (
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	"golang.org/x/xerrors"
 
-	"go-fil-markets/pieceio"
-	"go-fil-markets/piecestore"
+	"github.com/filecoin-heiben/go-fil-markets/pieceio"
+	"github.com/filecoin-heiben/go-fil-markets/piecestore"
 )
 
 // LoaderWithUnsealing is an ipld.Loader function that will also unseal pieces as needed

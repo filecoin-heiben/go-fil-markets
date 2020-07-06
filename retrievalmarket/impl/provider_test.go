@@ -15,12 +15,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/piecestore"
-	"go-fil-markets/retrievalmarket"
-	retrievalimpl "go-fil-markets/retrievalmarket/impl"
-	"go-fil-markets/retrievalmarket/impl/testnodes"
-	"go-fil-markets/retrievalmarket/network"
-	tut "go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/piecestore"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	retrievalimpl "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl/testnodes"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/network"
+	tut "github.com/filecoin-heiben/go-fil-markets/shared_testutil"
 )
 
 func TestHandleQueryStream(t *testing.T) {

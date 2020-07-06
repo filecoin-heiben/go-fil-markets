@@ -18,12 +18,12 @@ import (
 	"github.com/ipld/go-ipld-prime/traversal/selector/builder"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/filestore"
-	"go-fil-markets/shared"
-	"go-fil-markets/shared_testutil"
-	"go-fil-markets/storagemarket/impl/blockrecorder"
-	"go-fil-markets/storagemarket/impl/providerutils"
-	"go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/filestore"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/blockrecorder"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/providerutils"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
 )
 
 func TestVerifyProposal(t *testing.T) {

@@ -17,11 +17,11 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	"golang.org/x/xerrors"
 
-	"go-fil-markets/retrievalmarket"
-	"go-fil-markets/retrievalmarket/impl/blockio"
-	"go-fil-markets/retrievalmarket/impl/clientstates"
-	rmnet "go-fil-markets/retrievalmarket/network"
-	"go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl/blockio"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl/clientstates"
+	rmnet "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
 
 	"github.com/filecoin-project/go-storedcounter"
 )

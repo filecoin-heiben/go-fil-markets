@@ -7,14 +7,14 @@ import (
 	"sync"
 
 	"github.com/filecoin-project/go-padreader"
-	"sector-storage/ffiwrapper"
+	"github.com/filecoin-heiben/sector-storage/ffiwrapper"
 	"github.com/filecoin-project/specs-actors/actors/abi"
 	"github.com/ipfs/go-cid"
 	blockstore "github.com/ipfs/go-ipfs-blockstore"
 	"github.com/ipld/go-car"
 	"github.com/ipld/go-ipld-prime"
 
-	"go-fil-markets/filestore"
+	"github.com/filecoin-heiben/go-fil-markets/filestore"
 )
 
 type PreparedCar interface {

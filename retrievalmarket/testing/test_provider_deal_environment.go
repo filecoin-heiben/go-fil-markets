@@ -9,9 +9,9 @@ import (
 	"github.com/ipfs/go-cid"
 	"github.com/stretchr/testify/require"
 
-	rm "go-fil-markets/retrievalmarket"
-	retrievalimpl "go-fil-markets/retrievalmarket/impl"
-	rmnet "go-fil-markets/retrievalmarket/network"
+	rm "github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	retrievalimpl "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl"
+	rmnet "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/network"
 )
 
 // NB: in production the retrieval ProviderDealEnvironment is RetrievalProvider.

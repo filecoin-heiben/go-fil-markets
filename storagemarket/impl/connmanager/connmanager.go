@@ -6,7 +6,7 @@ import (
 	"github.com/ipfs/go-cid"
 	"golang.org/x/xerrors"
 
-	"go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
 )
 
 // ConnManager is a simple threadsafe map of proposal CID -> network deal stream

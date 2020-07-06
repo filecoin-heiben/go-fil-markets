@@ -23,7 +23,7 @@ The build process for storagemarket requires Go >= v1.13.
 
 To install:
 ```bash
-go get go-fil-markets/storagemarket
+go get github.com/filecoin-heiben/go-fil-markets/storagemarket
 ```
 
 ## Operation
@@ -337,7 +337,7 @@ func NewProvider(net network.StorageMarketNetwork,
 * `ds datastore.Batching` is the same interface as for [StorageClientNode](#StorageClientNode)
 * `bs blockstore.Blockstore` is the same interface as for [StorageClientNode](#StorageClientNode)
 * `fs filestore.FileStore` is an instance of the [filestore.FileStore](../filestore) struct from the 
-    go-fil-markets repo.
+    github.com/filecoin-heiben/go-fil-markets repo.
 * `pieceStore piecestore.PieceStore` is the database of deals and pieces associated with them.
 See this repo's [piecestore module](../piecestore).
 * `dataTransfer` is the same interface as for [StorageClientNode](#StorageClientNode)

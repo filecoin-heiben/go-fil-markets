@@ -27,7 +27,7 @@ The build process for retrievalmarket requires Go >= v1.13.
 
 To install:
 ```bash
-go get go-fil-markets/retrievalmarket
+go get github.com/filecoin-heiben/go-fil-markets/retrievalmarket
 ```
 
 ## Operation

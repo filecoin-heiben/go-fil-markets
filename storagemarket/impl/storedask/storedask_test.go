@@ -10,9 +10,9 @@ import (
 	dss "github.com/ipfs/go-datastore/sync"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/storagemarket"
-	"go-fil-markets/storagemarket/impl/storedask"
-	"go-fil-markets/storagemarket/testnodes"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/storedask"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/testnodes"
 )
 
 func TestStoredAsk(t *testing.T) {

@@ -17,8 +17,8 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	xerrors "golang.org/x/xerrors"
 
-	"go-fil-markets/storagemarket"
-	rv "go-fil-markets/storagemarket/impl/requestvalidation"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	rv "github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/requestvalidation"
 )
 
 var blockGenerator = blocksutil.NewBlockGenerator()

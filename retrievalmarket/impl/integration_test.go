@@ -19,15 +19,15 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/pieceio/cario"
-	"go-fil-markets/piecestore"
-	"go-fil-markets/retrievalmarket"
-	retrievalimpl "go-fil-markets/retrievalmarket/impl"
-	"go-fil-markets/retrievalmarket/impl/testnodes"
-	rmnet "go-fil-markets/retrievalmarket/network"
-	rmtesting "go-fil-markets/retrievalmarket/testing"
-	"go-fil-markets/shared"
-	tut "go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/pieceio/cario"
+	"github.com/filecoin-heiben/go-fil-markets/piecestore"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	retrievalimpl "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl/testnodes"
+	rmnet "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/network"
+	rmtesting "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/testing"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	tut "github.com/filecoin-heiben/go-fil-markets/shared_testutil"
 )
 
 func TestClientCanMakeQueryToProvider(t *testing.T) {
@@ -390,7 +390,7 @@ CurrentInterval: %d
 			require.Equal(t, retrievalmarket.DealStatusCompleted, providerDealState.Status)
 			// TODO this is terrible, but it's temporary until the test harness refactor
 			// in the resuming retrieval deals branch is done
-			// https://go-fil-markets/issues/65
+			// https://github.com/filecoin-heiben/go-fil-markets/issues/65
 			if testCase.decider != nil {
 				assert.True(t, customDeciderRan)
 			}

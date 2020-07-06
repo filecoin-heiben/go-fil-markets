@@ -13,8 +13,8 @@ import (
 	"github.com/ipld/go-ipld-prime/traversal/selector/builder"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/shared_testutil"
-	"go-fil-markets/storagemarket/impl/blockrecorder"
+	"github.com/filecoin-heiben/go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/blockrecorder"
 )
 
 func TestBlockRecording(t *testing.T) {

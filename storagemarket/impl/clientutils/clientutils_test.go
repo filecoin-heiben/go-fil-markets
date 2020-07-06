@@ -15,11 +15,11 @@ import (
 	"github.com/ipld/go-ipld-prime"
 	"github.com/stretchr/testify/require"
 
-	"go-fil-markets/shared"
-	"go-fil-markets/shared_testutil"
-	"go-fil-markets/storagemarket"
-	"go-fil-markets/storagemarket/impl/clientutils"
-	"go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/clientutils"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
 )
 
 func TestCommP(t *testing.T) {

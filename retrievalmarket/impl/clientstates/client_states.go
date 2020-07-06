@@ -8,8 +8,8 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/abi"
 	"github.com/filecoin-project/specs-actors/actors/abi/big"
 
-	rm "go-fil-markets/retrievalmarket"
-	rmnet "go-fil-markets/retrievalmarket/network"
+	rm "github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	rmnet "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/network"
 )
 
 // ClientDealEnvironment is a bridge to the environment a client deal is executing in

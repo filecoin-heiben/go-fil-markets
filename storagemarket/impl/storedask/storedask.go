@@ -12,8 +12,8 @@ import (
 	logging "github.com/ipfs/go-log/v2"
 	"golang.org/x/xerrors"
 
-	"go-fil-markets/storagemarket"
-	"go-fil-markets/storagemarket/impl/providerutils"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/providerutils"
 )
 
 var log = logging.Logger("storedask")

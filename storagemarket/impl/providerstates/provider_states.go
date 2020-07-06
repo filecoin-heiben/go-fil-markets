@@ -19,12 +19,12 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	"golang.org/x/xerrors"
 
-	"go-fil-markets/filestore"
-	"go-fil-markets/piecestore"
-	"go-fil-markets/shared"
-	"go-fil-markets/storagemarket"
-	"go-fil-markets/storagemarket/impl/providerutils"
-	"go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/filestore"
+	"github.com/filecoin-heiben/go-fil-markets/piecestore"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/providerutils"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
 )
 
 var log = logging.Logger("providerstates")

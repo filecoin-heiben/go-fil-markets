@@ -9,8 +9,8 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/builtin/paych"
 	"github.com/ipfs/go-cid"
 
-	"go-fil-markets/retrievalmarket"
-	"go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
 )
 
 // TestRetrievalClientNode is a node adapter for a retrieval client whose responses
