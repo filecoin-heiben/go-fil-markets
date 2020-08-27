@@ -21,6 +21,7 @@ import (
 	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/funds"
 	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/requestvalidation"
 	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
+
 	liuyan "log"
 )
 
@@ -43,6 +44,7 @@ type ClientStateEntryFunc func(ctx fsm.Context, environment ClientDealEnvironmen
 
 // EnsureClientFunds attempts to ensure the client has enough funds for the deal being proposed
 func EnsureClientFunds(ctx fsm.Context, environment ClientDealEnvironment, deal storagemarket.ClientDeal) error {
+	liuyan.Println("liuyan-client----------------------","EnsureClientFunds Starting")
 	node := environment.Node()
 
 	tok, _, err := node.GetChainHead(ctx.Context())
@@ -56,19 +58,22 @@ func EnsureClientFunds(ctx fsm.Context, environment ClientDealEnvironment, deal 
 		if err != nil {
 			return ctx.Trigger(storagemarket.ClientEventEnsureFundsFailed, xerrors.Errorf("tracking deal funds: %w", err))
 		}
+		liuyan.Println("liuyan-client-01requiredFunds-",requiredFunds)
 	} else {
 		requiredFunds = environment.DealFunds().Get()
+		liuyan.Println("liuyan-client-02requiredFunds-",requiredFunds)
 	}
 	liuyan.Println("liuyan-requiredFunds-",requiredFunds)
 	_ = ctx.Trigger(storagemarket.ClientEventFundsReserved, deal.Proposal.ClientBalanceRequirement())
 
 	mcid, err := node.EnsureFunds(ctx.Context(), deal.Proposal.Client, deal.Proposal.Client, requiredFunds, tok)
-
+	liuyan.Println("liuyan-client-mcid-",mcid)
 	if err != nil {
 		return ctx.Trigger(storagemarket.ClientEventEnsureFundsFailed, err)
 	}
 
 	// if no message was sent, and there was no error, funds were already available
+	liuyan.Println("liuyan-client-cid.Undef-",cid.Undef)
 	if mcid == cid.Undef {
 		return ctx.Trigger(storagemarket.ClientEventFundsEnsured)
 	}
@@ -78,8 +83,9 @@ func EnsureClientFunds(ctx fsm.Context, environment ClientDealEnvironment, deal 
 
 // WaitForFunding waits for an AddFunds message to appear on the chain
 func WaitForFunding(ctx fsm.Context, environment ClientDealEnvironment, deal storagemarket.ClientDeal) error {
+	liuyan.Println("liuyan-client----------------------","WaitForFunding Starting")
 	node := environment.Node()
-	liuyan.Println("liuyan-deal.AddFundsCid-",deal.AddFundsCid)
+	liuyan.Println("liuyan-client-deal.AddFundsCid-",deal.AddFundsCid)
 	return node.WaitForMessage(ctx.Context(), *deal.AddFundsCid, func(code exitcode.ExitCode, bytes []byte, err error) error {
 		if err != nil {
 			return ctx.Trigger(storagemarket.ClientEventEnsureFundsFailed, xerrors.Errorf("AddFunds err: %w", err))
@@ -87,7 +93,9 @@ func WaitForFunding(ctx fsm.Context, environment ClientDealEnvironment, deal sto
 		if code != exitcode.Ok {
 			return ctx.Trigger(storagemarket.ClientEventEnsureFundsFailed, xerrors.Errorf("AddFunds exit code: %s", code.String()))
 		}
-		liuyan.Println("liuyan------")
+
+		liuyan.Println("liuyan-client------")
+
 		return ctx.Trigger(storagemarket.ClientEventFundsEnsured)
 
 	})
@@ -95,6 +103,7 @@ func WaitForFunding(ctx fsm.Context, environment ClientDealEnvironment, deal sto
 
 // ProposeDeal sends the deal proposal to the provider
 func ProposeDeal(ctx fsm.Context, environment ClientDealEnvironment, deal storagemarket.ClientDeal) error {
+	liuyan.Println("liuyan-client----------------------","ProposeDeal Starting")
 	proposal := network.Proposal{
 		DealProposal:  &deal.ClientDealProposal,
 		Piece:         deal.DataRef,
@@ -131,6 +140,8 @@ func ProposeDeal(ctx fsm.Context, environment ClientDealEnvironment, deal storag
 		return ctx.Trigger(storagemarket.ClientEventResponseVerificationFailed)
 	}
 
+	liuyan.Println("liuyan-client-resp.Response.State-",resp.Response.State)
+	liuyan.Println("liuyan-client-storagemarket.StorageDealWaitingForData-",storagemarket.StorageDealWaitingForData)
 	if resp.Response.State != storagemarket.StorageDealWaitingForData {
 		return ctx.Trigger(storagemarket.ClientEventUnexpectedDealState, resp.Response.State, resp.Response.Message)
 	}
@@ -140,11 +151,13 @@ func ProposeDeal(ctx fsm.Context, environment ClientDealEnvironment, deal storag
 
 // InitiateDataTransfer initiates data transfer to the provider
 func InitiateDataTransfer(ctx fsm.Context, environment ClientDealEnvironment, deal storagemarket.ClientDeal) error {
+	liuyan.Println("liuyan-client---------------------","InitiateDataTransfer Starting")
 	if deal.DataRef.TransferType == storagemarket.TTManual {
 		log.Infof("manual data transfer for deal %s", deal.ProposalCid)
+		liuyan.Println("liuyan-client-manual data transfer for deal ", deal.ProposalCid)
 		return ctx.Trigger(storagemarket.ClientEventDataTransferComplete)
 	}
-
+	liuyan.Println("liuyan-client-sending data for a deal ", deal.ProposalCid)
 	log.Infof("sending data for a deal %s", deal.ProposalCid)
 
 	// initiate a push data transfer. This will complete asynchronously and the
@@ -165,7 +178,7 @@ func InitiateDataTransfer(ctx fsm.Context, environment ClientDealEnvironment, de
 
 // CheckForDealAcceptance is run until the deal is sealed and published by the provider, or errors
 func CheckForDealAcceptance(ctx fsm.Context, environment ClientDealEnvironment, deal storagemarket.ClientDeal) error {
-
+	liuyan.Println("liuyan-client---------------------","CheckForDealAcceptance Starting")
 	dealState, err := environment.GetProviderDealState(ctx.Context(), deal.ProposalCid)
 	if err != nil {
 		log.Warnf("error when querying provider deal state: %w", err) // TODO: at what point do we fail the deal?
@@ -175,6 +188,8 @@ func CheckForDealAcceptance(ctx fsm.Context, environment ClientDealEnvironment, 
 	if isFailed(dealState.State) {
 		return ctx.Trigger(storagemarket.ClientEventDealRejected, dealState.State, dealState.Message)
 	}
+	liuyan.Println("liuyan-client-dealState.State", dealState.State)
+	liuyan.Println("liuyan-client-isAccepted(dealState.State)", isAccepted(dealState.State))
 
 	if isAccepted(dealState.State) {
 		if *dealState.ProposalCid != deal.ProposalCid {
@@ -205,9 +220,11 @@ func waitAgain(ctx fsm.Context, environment ClientDealEnvironment, pollError boo
 
 // ValidateDealPublished confirms with the chain that a deal was published
 func ValidateDealPublished(ctx fsm.Context, environment ClientDealEnvironment, deal storagemarket.ClientDeal) error {
-
+	liuyan.Println("liuyan-client---------------------","ValidateDealPublished Starting")
 	dealID, err := environment.Node().ValidatePublishedDeal(ctx.Context(), deal)
+	liuyan.Println("liuyan-client-dealID-",dealID)
 	if err != nil {
+		liuyan.Println("liuyan-client-err-",err)
 		return ctx.Trigger(storagemarket.ClientEventDealPublishFailed, err)
 	}
 
@@ -228,6 +245,7 @@ func ValidateDealPublished(ctx fsm.Context, environment ClientDealEnvironment, d
 
 // VerifyDealActivated confirms that a deal was successfully committed to a sector and is active
 func VerifyDealActivated(ctx fsm.Context, environment ClientDealEnvironment, deal storagemarket.ClientDeal) error {
+	liuyan.Println("liuyan-client---------------------","VerifyDealActivated Starting")
 	cb := func(err error) {
 		if err != nil {
 			_ = ctx.Trigger(storagemarket.ClientEventDealActivationFailed, err)
@@ -245,6 +263,7 @@ func VerifyDealActivated(ctx fsm.Context, environment ClientDealEnvironment, dea
 
 // WaitForDealCompletion waits for the deal to be slashed or to expire
 func WaitForDealCompletion(ctx fsm.Context, environment ClientDealEnvironment, deal storagemarket.ClientDeal) error {
+	liuyan.Println("liuyan-client---------------------","WaitForDealCompletion Starting")
 	node := environment.Node()
 
 	// Called when the deal expires
@@ -252,6 +271,7 @@ func WaitForDealCompletion(ctx fsm.Context, environment ClientDealEnvironment, d
 		if err != nil {
 			_ = ctx.Trigger(storagemarket.ClientEventDealCompletionFailed, xerrors.Errorf("deal expiration err: %w", err))
 		} else {
+			liuyan.Println("liuyan-client-ClientEventDealExpired-")
 			_ = ctx.Trigger(storagemarket.ClientEventDealExpired)
 		}
 	}
@@ -261,6 +281,7 @@ func WaitForDealCompletion(ctx fsm.Context, environment ClientDealEnvironment, d
 		if err != nil {
 			_ = ctx.Trigger(storagemarket.ClientEventDealCompletionFailed, xerrors.Errorf("deal slashing err: %w", err))
 		} else {
+			liuyan.Println("liuyan-client-ClientEventDealSlashed-")
 			_ = ctx.Trigger(storagemarket.ClientEventDealSlashed, slashEpoch)
 		}
 	}

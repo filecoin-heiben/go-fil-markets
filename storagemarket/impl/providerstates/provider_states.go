@@ -26,6 +26,7 @@ import (
 	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/funds"
 	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/providerutils"
 	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
+
 	liuyan "log"
 )
 
@@ -53,35 +54,54 @@ type ProviderStateEntryFunc func(ctx fsm.Context, environment ProviderDealEnviro
 
 // ValidateDealProposal validates a proposed deal against the provider criteria
 func ValidateDealProposal(ctx fsm.Context, environment ProviderDealEnvironment, deal storagemarket.MinerDeal) error {
+	liuyan.Println("liuyan-provider---------------------","ValidateDealProposal Starting")
 	environment.TagPeer(deal.Client, deal.ProposalCid.String())
 
 	tok, _, err := environment.Node().GetChainHead(ctx.Context())
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("node error getting most recent state id: %w", err))
-		liuyan.Println("liuyan--","node error getting most recent state id:",err)
+
+		liuyan.Println("liuyan-provider-","node error getting most recent state id:",err)
+
 	}
 
 	if err := providerutils.VerifyProposal(ctx.Context(), deal.ClientDealProposal, tok, environment.Node().VerifySignature); err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("verifying StorageDealProposal: %w", err))
-		liuyan.Println("liuyan--","verifying StorageDealProposal:",err)
+
+
+		liuyan.Println("liuyan-provider-","verifying StorageDealProposal:",err)
+
 	}
 
 	proposal := deal.Proposal
 
-	liuyan.Println("liuyan--","proposal.ProviderCollateral:",proposal.ProviderCollateral)
+
+
+	liuyan.Println("liuyan-provider-","proposal.ProviderCollateral:",proposal.ProviderCollateral)
+
 
 	if proposal.Provider != environment.Address() {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("incorrect provider for deal"))
-		liuyan.Println("liuyan--","verifying StorageDealProposal:",err)
+		liuyan.Println("liuyan-provider-","verifying StorageDealProposal:",err)
+
 	}
+	liuyan.Println("liuyan-provider-proposal.VerifiedDeal-",proposal.VerifiedDeal)
+	liuyan.Println("liuyan-provider-proposal.PieceSize-",proposal.PieceSize)
 
 	liuyan.Println("liuyan-proposal.VerifiedDeal-",proposal.VerifiedDeal)
 	liuyan.Println("liuyan-proposal.PieceSize-",proposal.PieceSize)
 
 	pcMin, pcMax, err := environment.Node().DealProviderCollateralBounds(ctx.Context(), proposal.PieceSize, proposal.VerifiedDeal)
+
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("node error getting collateral bounds: %w", err))
+
+		liuyan.Println("liuyan-provider--","node error getting collateral bounds:",err)
 	}
+
+	liuyan.Println("liuyan-provider-proposal.ProviderCollateral-",proposal.ProviderCollateral)
+	liuyan.Println("liuyan-provider-pcMin-",pcMin)
+	liuyan.Println("liuyan-provider-pcMax-",pcMax)
 
 	if proposal.ProviderCollateral.LessThan(pcMin) {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("proposed provider collateral below minimum: %s < %s", proposal.ProviderCollateral, pcMin))
@@ -98,11 +118,18 @@ func ValidateDealProposal(ctx fsm.Context, environment ProviderDealEnvironment, 
 	}
 
 	minPrice := big.Div(big.Mul(askPrice, abi.NewTokenAmount(int64(proposal.PieceSize))), abi.NewTokenAmount(1<<30))
+
+	liuyan.Println("liuyan-provider-proposal.StoragePricePerEpoch-",proposal.StoragePricePerEpoch)
+	liuyan.Println("liuyan-provider-minPrice-",minPrice)
+
 	if proposal.StoragePricePerEpoch.LessThan(minPrice) {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected,
 			xerrors.Errorf("storage price per epoch less than asking price: %s < %s", proposal.StoragePricePerEpoch, minPrice))
 	}
 
+	liuyan.Println("liuyan-provider-proposal.PieceSize-",proposal.PieceSize)
+	liuyan.Println("liuyan-provider-environment.Ask().MinPieceSize-",environment.Ask().MinPieceSize)
+	liuyan.Println("liuyan-provider-environment.Ask().MaxPieceSize-",environment.Ask().MaxPieceSize)
 	if proposal.PieceSize < environment.Ask().MinPieceSize {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected,
 			xerrors.Errorf("piece size less than minimum required size: %d < %d", proposal.PieceSize, environment.Ask().MinPieceSize))
@@ -114,11 +141,14 @@ func ValidateDealProposal(ctx fsm.Context, environment ProviderDealEnvironment, 
 	}
 
 	// check market funds
+	liuyan.Println("liuyan-provider-proposal.Client-",proposal.Client)
 	clientMarketBalance, err := environment.Node().GetBalance(ctx.Context(), proposal.Client, tok)
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("node error getting client market balance failed: %w", err))
 	}
 
+	liuyan.Println("liuyan-provider-clientMarketBalance.Available-",clientMarketBalance.Available)
+	liuyan.Println("liuyan-provider-proposal.TotalStorageFee()-",proposal.TotalStorageFee())
 	// This doesn't guarantee that the client won't withdraw / lock those funds
 	// but it's a decent first filter
 	if clientMarketBalance.Available.LessThan(proposal.TotalStorageFee()) {
@@ -128,6 +158,7 @@ func ValidateDealProposal(ctx fsm.Context, environment ProviderDealEnvironment, 
 	// Verified deal checks
 	if proposal.VerifiedDeal {
 		dataCap, err := environment.Node().GetDataCap(ctx.Context(), proposal.Client, tok)
+		liuyan.Println("liuyan-provider-dataCap-",dataCap)
 		if err != nil {
 			return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("node error fetching verified data cap: %w", err))
 		}
@@ -146,7 +177,10 @@ func ValidateDealProposal(ctx fsm.Context, environment ProviderDealEnvironment, 
 // DecideOnProposal allows custom decision logic to run before accepting a deal, such as allowing a manual
 // operator to decide whether or not to accept the deal
 func DecideOnProposal(ctx fsm.Context, environment ProviderDealEnvironment, deal storagemarket.MinerDeal) error {
+	liuyan.Println("liuyan-provider----------------------","DecideOnProposal Starting")
 	accept, reason, err := environment.RunCustomDecisionLogic(ctx.Context(), deal)
+	liuyan.Println("liuyan-provider--accept",accept)
+	liuyan.Println("liuyan-provider--reason",reason)
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("custom deal decision logic failed: %w", err))
 	}
@@ -175,8 +209,13 @@ func DecideOnProposal(ctx fsm.Context, environment ProviderDealEnvironment, deal
 // VerifyData verifies that data received for a deal matches the pieceCID
 // in the proposal
 func VerifyData(ctx fsm.Context, environment ProviderDealEnvironment, deal storagemarket.MinerDeal) error {
-
+	liuyan.Println("liuyan-provider----------------------","VerifyData Starting")
 	pieceCid, piecePath, metadataPath, err := environment.GeneratePieceCommitmentToFile(deal.StoreID, deal.Ref.Root, shared.AllSelector())
+
+	liuyan.Println("liuyan-provider--pieceCid-",pieceCid)
+	liuyan.Println("liuyan-provider--piecePath-",piecePath)
+	liuyan.Println("liuyan-provider--metadataPath-",metadataPath)
+	liuyan.Println("liuyan-provider--deal.Proposal.PieceCID-",deal.Proposal.PieceCID)
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventDataVerificationFailed, xerrors.Errorf("error generating CommP: %w", err))
 	}
@@ -191,6 +230,7 @@ func VerifyData(ctx fsm.Context, environment ProviderDealEnvironment, deal stora
 
 // EnsureProviderFunds adds funds, as needed to the StorageMarketActor, so the miner has adequate collateral for the deal
 func EnsureProviderFunds(ctx fsm.Context, environment ProviderDealEnvironment, deal storagemarket.MinerDeal) error {
+	liuyan.Println("liuyan-provider----------------------","EnsureProviderFunds Starting")
 	node := environment.Node()
 
 	tok, _, err := node.GetChainHead(ctx.Context())
@@ -199,28 +239,33 @@ func EnsureProviderFunds(ctx fsm.Context, environment ProviderDealEnvironment, d
 	}
 
 	waddr, err := node.GetMinerWorkerAddress(ctx.Context(), deal.Proposal.Provider, tok)
+	liuyan.Println("liuyan-provider-waddr-",waddr)
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventNodeErrored, xerrors.Errorf("looking up miner worker: %w", err))
 	}
 	var requiredFunds abi.TokenAmount
 	if deal.FundsReserved.Nil() || deal.FundsReserved.IsZero() {
+		liuyan.Println("liuyan-provider-requiredFunds01-",requiredFunds)
 		requiredFunds, err = environment.DealFunds().Reserve(deal.Proposal.ProviderCollateral)
 		if err != nil {
 			return ctx.Trigger(storagemarket.ProviderEventTrackFundsFailed, xerrors.Errorf("tracking deal funds: %w", err))
 		}
 	} else {
+		liuyan.Println("liuyan-provider-requiredFunds02-",requiredFunds)
 		requiredFunds = environment.DealFunds().Get()
 	}
 
 	_ = ctx.Trigger(storagemarket.ProviderEventFundsReserved, deal.Proposal.ProviderCollateral)
 
 	mcid, err := node.EnsureFunds(ctx.Context(), deal.Proposal.Provider, waddr, requiredFunds, tok)
-
+	liuyan.Println("liuyan-provider-mcid-",mcid)
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventNodeErrored, xerrors.Errorf("ensuring funds: %w", err))
 	}
 
 	// if no message was sent, and there was no error, it was instantaneous
+	liuyan.Println("liuyan-provider-(mcid == cid.Undef)-",mcid == cid.Undef)
+	liuyan.Println("liuyan-provider-cid.Undef-",cid.Undef)
 	if mcid == cid.Undef {
 		return ctx.Trigger(storagemarket.ProviderEventFunded)
 	}
@@ -230,8 +275,9 @@ func EnsureProviderFunds(ctx fsm.Context, environment ProviderDealEnvironment, d
 
 // WaitForFunding waits for a message posted to add funds to the StorageMarketActor to appear on chain
 func WaitForFunding(ctx fsm.Context, environment ProviderDealEnvironment, deal storagemarket.MinerDeal) error {
+	liuyan.Println("liuyan-provider----------------------","WaitForFunding Starting")
 	node := environment.Node()
-
+	liuyan.Println("liuyan-provider-deal.AddFundsCid-",deal.AddFundsCid)
 	return node.WaitForMessage(ctx.Context(), *deal.AddFundsCid, func(code exitcode.ExitCode, bytes []byte, err error) error {
 		if err != nil {
 			return ctx.Trigger(storagemarket.ProviderEventNodeErrored, xerrors.Errorf("AddFunds errored: %w", err))
@@ -252,8 +298,9 @@ func PublishDeal(ctx fsm.Context, environment ProviderDealEnvironment, deal stor
 		State:              deal.State,
 		Ref:                deal.Ref,
 	}
-
+	liuyan.Println("liuyan-provider----------------------","PublishDeal Starting")
 	mcid, err := environment.Node().PublishDeals(ctx.Context(), smDeal)
+	liuyan.Println("liuyan-provider-mcid-",mcid)
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventNodeErrored, xerrors.Errorf("publishing deal: %w", err))
 	}
@@ -263,6 +310,8 @@ func PublishDeal(ctx fsm.Context, environment ProviderDealEnvironment, deal stor
 
 // WaitForPublish waits for the publish message on chain and sends the deal id back to the client
 func WaitForPublish(ctx fsm.Context, environment ProviderDealEnvironment, deal storagemarket.MinerDeal) error {
+	liuyan.Println("liuyan-provider----------------------","WaitForPublish Starting")
+	liuyan.Println("liuyan-provider-deal.PublishCid-","deal.PublishCid")
 	return environment.Node().WaitForMessage(ctx.Context(), *deal.PublishCid, func(code exitcode.ExitCode, retBytes []byte, err error) error {
 		if err != nil {
 			return ctx.Trigger(storagemarket.ProviderEventDealPublishError, xerrors.Errorf("PublishStorageDeals errored: %w", err))
@@ -291,6 +340,7 @@ func WaitForPublish(ctx fsm.Context, environment ProviderDealEnvironment, deal s
 
 // HandoffDeal hands off a published deal for sealing and commitment in a sector
 func HandoffDeal(ctx fsm.Context, environment ProviderDealEnvironment, deal storagemarket.MinerDeal) error {
+	liuyan.Println("liuyan-provider----------------------","HandoffDeal Starting")
 	file, err := environment.FileStore().Open(deal.PiecePath)
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventFileStoreErrored, xerrors.Errorf("reading piece at path %s: %w", deal.PiecePath, err))
@@ -330,7 +380,7 @@ func HandoffDeal(ctx fsm.Context, environment ProviderDealEnvironment, deal stor
 }
 
 func recordPiece(environment ProviderDealEnvironment, deal storagemarket.MinerDeal, sectorID abi.SectorNumber, offset, length abi.PaddedPieceSize) error {
-
+	liuyan.Println("liuyan-provider----------------------","RecordPiece Starting")
 	var blockLocations map[cid.Cid]piecestore.BlockLocation
 	if deal.MetadataPath != filestore.Path("") {
 		var err error
@@ -347,7 +397,7 @@ func recordPiece(environment ProviderDealEnvironment, deal storagemarket.MinerDe
 	if err := environment.PieceStore().AddPieceBlockLocations(deal.Proposal.PieceCID, blockLocations); err != nil {
 		return xerrors.Errorf("failed to add piece block locations: %s", err)
 	}
-
+	liuyan.Println("liuyan-provider-deal.Proposal.PieceCID-",deal.Proposal.PieceCID)
 	err := environment.PieceStore().AddDealForPiece(deal.Proposal.PieceCID, piecestore.DealInfo{
 		DealID:   deal.DealID,
 		SectorID: sectorID,
@@ -380,6 +430,7 @@ func CleanupDeal(ctx fsm.Context, environment ProviderDealEnvironment, deal stor
 // VerifyDealActivated verifies that a deal has been committed to a sector and activated
 func VerifyDealActivated(ctx fsm.Context, environment ProviderDealEnvironment, deal storagemarket.MinerDeal) error {
 	// TODO: consider waiting for seal to happen
+	liuyan.Println("liuyan-provider----------------------","VerifyDealActivated Starting")
 	cb := func(err error) {
 		if err != nil {
 			_ = ctx.Trigger(storagemarket.ProviderEventDealActivationFailed, err)
@@ -399,6 +450,7 @@ func VerifyDealActivated(ctx fsm.Context, environment ProviderDealEnvironment, d
 // WaitForDealCompletion waits for the deal to be slashed or to expire
 func WaitForDealCompletion(ctx fsm.Context, environment ProviderDealEnvironment, deal storagemarket.MinerDeal) error {
 	// At this point we have all the data so we can unprotect the connection
+	liuyan.Println("liuyan-provider----------------------","WaitForDealCompletion Starting")
 	environment.UntagPeer(deal.Client, deal.ProposalCid.String())
 
 	node := environment.Node()
@@ -408,6 +460,7 @@ func WaitForDealCompletion(ctx fsm.Context, environment ProviderDealEnvironment,
 		if err != nil {
 			_ = ctx.Trigger(storagemarket.ProviderEventDealCompletionFailed, xerrors.Errorf("deal expiration err: %w", err))
 		} else {
+			liuyan.Println("liuyan-provider-ClientEventDealExpired-")
 			_ = ctx.Trigger(storagemarket.ProviderEventDealExpired)
 		}
 	}
@@ -417,6 +470,7 @@ func WaitForDealCompletion(ctx fsm.Context, environment ProviderDealEnvironment,
 		if err != nil {
 			_ = ctx.Trigger(storagemarket.ProviderEventDealCompletionFailed, xerrors.Errorf("deal slashing err: %w", err))
 		} else {
+			liuyan.Println("liuyan-provider-ProviderEventDealSlashed-")
 			_ = ctx.Trigger(storagemarket.ProviderEventDealSlashed, slashEpoch)
 		}
 	}
