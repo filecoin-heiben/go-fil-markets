@@ -27,7 +27,7 @@ The build process for retrievalmarket requires Go >= v1.13.
 
 To install:
 ```bash
-go get github.com/filecoin-project/go-fil-markets/retrievalmarket
+go get github.com/filecoin-heiben/go-fil-markets/retrievalmarket
 ```
 
 ## Operation
@@ -291,7 +291,7 @@ See this repo's [piecestore module](../piecestore).
 
 ## Technical Documentation
 
-* [GoDoc](https://godoc.org/github.com/filecoin-project/go-fil-markets/retrievalmarket) contains an architectural overview and robust API documentation
+* [GoDoc](https://godoc.org/github.com/filecoin-heiben/go-fil-markets/retrievalmarket) contains an architectural overview and robust API documentation
 
 * Retrieval Client FSM diagram:
 

@@ -8,8 +8,8 @@ import (
 	datatransfer "github.com/filecoin-project/go-data-transfer"
 	"github.com/filecoin-project/go-multistore"
 
-	rm "github.com/filecoin-project/go-fil-markets/retrievalmarket"
-	retrievalimpl "github.com/filecoin-project/go-fil-markets/retrievalmarket/impl"
+	rm "github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
+	retrievalimpl "github.com/filecoin-heiben/go-fil-markets/retrievalmarket/impl"
 )
 
 // TestProviderDealEnvironment is a test implementation of ProviderDealEnvironment used

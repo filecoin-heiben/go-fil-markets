@@ -4,7 +4,7 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/abi"
 	"github.com/filecoin-project/specs-actors/actors/abi/big"
 
-	"github.com/filecoin-project/go-fil-markets/storagemarket/impl/funds"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/funds"
 )
 
 func NewTestDealFunds() *TestDealFunds {

@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	storageimpl "github.com/filecoin-project/go-fil-markets/storagemarket/impl"
+	storageimpl "github.com/filecoin-heiben/go-fil-markets/storagemarket/impl"
 )
 
 func TestConfigure(t *testing.T) {

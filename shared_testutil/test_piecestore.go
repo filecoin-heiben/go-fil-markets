@@ -7,8 +7,8 @@ import (
 	"github.com/ipfs/go-cid"
 	"github.com/stretchr/testify/require"
 
-	"github.com/filecoin-project/go-fil-markets/piecestore"
-	"github.com/filecoin-project/go-fil-markets/retrievalmarket"
+	"github.com/filecoin-heiben/go-fil-markets/piecestore"
+	"github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
 )
 
 // TestPieceStore is piecestore who's query results are mocked

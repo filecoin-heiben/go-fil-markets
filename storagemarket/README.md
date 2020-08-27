@@ -24,7 +24,7 @@ The build process for storagemarket requires Go >= v1.13.
 
 To install:
 ```bash
-go get github.com/filecoin-project/go-fil-markets/storagemarket
+go get github.com/filecoin-heiben/go-fil-markets/storagemarket
 ```
 
 ## Operation
@@ -384,7 +384,7 @@ See this repo's [piecestore module](../piecestore).
 
 ## Technical Documentation
 
-* [GoDoc](https://godoc.org/github.com/filecoin-project/go-fil-markets/storagemarket) contains an architectural overview and robust API documentation
+* [GoDoc](https://godoc.org/github.com/filecoin-heiben/go-fil-markets/storagemarket) contains an architectural overview and robust API documentation
 
 * Storage Client FSM diagram:
 

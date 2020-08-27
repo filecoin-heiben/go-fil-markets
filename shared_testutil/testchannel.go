@@ -8,7 +8,7 @@ import (
 
 	datatransfer "github.com/filecoin-project/go-data-transfer"
 
-	"github.com/filecoin-project/go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
 )
 
 // TestChannelParams are params for a new test data transfer channel

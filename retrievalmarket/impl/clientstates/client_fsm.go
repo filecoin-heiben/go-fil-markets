@@ -12,7 +12,7 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/abi"
 	"github.com/filecoin-project/specs-actors/actors/abi/big"
 
-	rm "github.com/filecoin-project/go-fil-markets/retrievalmarket"
+	rm "github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
 )
 
 func recordReceived(deal *rm.ClientDealState, totalReceived uint64) error {

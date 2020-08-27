@@ -19,13 +19,14 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/builtin/market"
 	"github.com/filecoin-project/specs-actors/actors/runtime/exitcode"
 
-	"github.com/filecoin-project/go-fil-markets/filestore"
-	"github.com/filecoin-project/go-fil-markets/piecestore"
-	"github.com/filecoin-project/go-fil-markets/shared"
-	"github.com/filecoin-project/go-fil-markets/storagemarket"
-	"github.com/filecoin-project/go-fil-markets/storagemarket/impl/funds"
-	"github.com/filecoin-project/go-fil-markets/storagemarket/impl/providerutils"
-	"github.com/filecoin-project/go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/filestore"
+	"github.com/filecoin-heiben/go-fil-markets/piecestore"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/funds"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/providerutils"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
+	liuyan "log"
 )
 
 var log = logging.Logger("providerstates")
@@ -57,17 +58,25 @@ func ValidateDealProposal(ctx fsm.Context, environment ProviderDealEnvironment, 
 	tok, _, err := environment.Node().GetChainHead(ctx.Context())
 	if err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("node error getting most recent state id: %w", err))
+		liuyan.Println("liuyan--","node error getting most recent state id:",err)
 	}
 
 	if err := providerutils.VerifyProposal(ctx.Context(), deal.ClientDealProposal, tok, environment.Node().VerifySignature); err != nil {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("verifying StorageDealProposal: %w", err))
+		liuyan.Println("liuyan--","verifying StorageDealProposal:",err)
 	}
 
 	proposal := deal.Proposal
 
+	liuyan.Println("liuyan--","proposal.ProviderCollateral:",proposal.ProviderCollateral)
+
 	if proposal.Provider != environment.Address() {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("incorrect provider for deal"))
+		liuyan.Println("liuyan--","verifying StorageDealProposal:",err)
 	}
+
+	liuyan.Println("liuyan-proposal.VerifiedDeal-",proposal.VerifiedDeal)
+	liuyan.Println("liuyan-proposal.PieceSize-",proposal.PieceSize)
 
 	pcMin, pcMax, err := environment.Node().DealProviderCollateralBounds(ctx.Context(), proposal.PieceSize, proposal.VerifiedDeal)
 	if err != nil {
@@ -76,6 +85,7 @@ func ValidateDealProposal(ctx fsm.Context, environment ProviderDealEnvironment, 
 
 	if proposal.ProviderCollateral.LessThan(pcMin) {
 		return ctx.Trigger(storagemarket.ProviderEventDealRejected, xerrors.Errorf("proposed provider collateral below minimum: %s < %s", proposal.ProviderCollateral, pcMin))
+		liuyan.Println("liuyan--","node error getting collateral bounds:",err)
 	}
 
 	if proposal.ProviderCollateral.GreaterThan(pcMax) {

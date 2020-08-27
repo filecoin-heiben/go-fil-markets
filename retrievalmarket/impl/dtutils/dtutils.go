@@ -14,7 +14,7 @@ import (
 	"github.com/filecoin-project/go-multistore"
 	"github.com/filecoin-project/go-statemachine/fsm"
 
-	rm "github.com/filecoin-project/go-fil-markets/retrievalmarket"
+	rm "github.com/filecoin-heiben/go-fil-markets/retrievalmarket"
 )
 
 var log = logging.Logger("retrievalmarket_impl")

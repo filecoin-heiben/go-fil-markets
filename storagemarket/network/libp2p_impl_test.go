@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/filecoin-project/go-fil-markets/shared_testutil"
-	"github.com/filecoin-project/go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/shared_testutil"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
 )
 
 type testReceiver struct {

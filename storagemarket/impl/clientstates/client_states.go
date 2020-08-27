@@ -15,12 +15,13 @@ import (
 	"github.com/filecoin-project/specs-actors/actors/abi"
 	"github.com/filecoin-project/specs-actors/actors/runtime/exitcode"
 
-	"github.com/filecoin-project/go-fil-markets/shared"
-	"github.com/filecoin-project/go-fil-markets/storagemarket"
-	"github.com/filecoin-project/go-fil-markets/storagemarket/impl/clientutils"
-	"github.com/filecoin-project/go-fil-markets/storagemarket/impl/funds"
-	"github.com/filecoin-project/go-fil-markets/storagemarket/impl/requestvalidation"
-	"github.com/filecoin-project/go-fil-markets/storagemarket/network"
+	"github.com/filecoin-heiben/go-fil-markets/shared"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/clientutils"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/funds"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/impl/requestvalidation"
+	"github.com/filecoin-heiben/go-fil-markets/storagemarket/network"
+	liuyan "log"
 )
 
 var log = logging.Logger("storagemarket_impl")
@@ -58,7 +59,7 @@ func EnsureClientFunds(ctx fsm.Context, environment ClientDealEnvironment, deal 
 	} else {
 		requiredFunds = environment.DealFunds().Get()
 	}
-
+	liuyan.Println("liuyan-requiredFunds-",requiredFunds)
 	_ = ctx.Trigger(storagemarket.ClientEventFundsReserved, deal.Proposal.ClientBalanceRequirement())
 
 	mcid, err := node.EnsureFunds(ctx.Context(), deal.Proposal.Client, deal.Proposal.Client, requiredFunds, tok)
@@ -78,7 +79,7 @@ func EnsureClientFunds(ctx fsm.Context, environment ClientDealEnvironment, deal 
 // WaitForFunding waits for an AddFunds message to appear on the chain
 func WaitForFunding(ctx fsm.Context, environment ClientDealEnvironment, deal storagemarket.ClientDeal) error {
 	node := environment.Node()
-
+	liuyan.Println("liuyan-deal.AddFundsCid-",deal.AddFundsCid)
 	return node.WaitForMessage(ctx.Context(), *deal.AddFundsCid, func(code exitcode.ExitCode, bytes []byte, err error) error {
 		if err != nil {
 			return ctx.Trigger(storagemarket.ClientEventEnsureFundsFailed, xerrors.Errorf("AddFunds err: %w", err))
@@ -86,6 +87,7 @@ func WaitForFunding(ctx fsm.Context, environment ClientDealEnvironment, deal sto
 		if code != exitcode.Ok {
 			return ctx.Trigger(storagemarket.ClientEventEnsureFundsFailed, xerrors.Errorf("AddFunds exit code: %s", code.String()))
 		}
+		liuyan.Println("liuyan------")
 		return ctx.Trigger(storagemarket.ClientEventFundsEnsured)
 
 	})
